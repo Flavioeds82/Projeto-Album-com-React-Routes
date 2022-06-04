@@ -12,6 +12,7 @@ export function Album(){
    const url = 'https://jsonplaceholder.typicode.com';
    const [photos, setPhotos] = useState<Photo[]>([]);
    const [loading, setLoading] = useState<boolean>(true);
+   const [albumTitle, setTitle] = useState<string>('');
    const navigate = useNavigate();
 
 
@@ -19,11 +20,26 @@ export function Album(){
    async function loadPhotos(){
       let response = await axios.get(`${url}/photos`);
       setPhotos(filterData(response.data));
+      loadTitle();
       setLoading(false)
    }
    function handleClick(){
       navigate(-1);
    }
+   async function loadTitle(){
+      let response = await axios.get(`${url}/albums`);
+      for(let i of response.data){
+         if(params.id){
+            if(i.id === parseInt(params.id)){
+               setTitle(i.title)
+            }
+         }
+         
+      }
+      
+   }
+
+
    function filterData(data:Photo[]){
       let temp:Photo[] = [];
       for(let i of data){
@@ -42,26 +58,30 @@ export function Album(){
 
    return(
       <div className="container">
-      <button className='link-bt' onClick={handleClick}>Voltar</button>
-      <div className="container-album">
-            {loading &&
-               <div className="load-album">
-                  <div className="load">Carregando...</div>
-               </div>
-            }
-            {!loading && photos.length > 0 &&
-               photos.map((item, index)=>(
-                  <Link to={`/pictures/${item.id}`} className="link">
-                     <div key={index} className='grid-album' >
-                              <div>{item.id}</div>
-                              <img src={item.thumbnailUrl} alt="" /> 
-                     </div>
-                  </Link> 
+         <button className='link-bt' onClick={handleClick}>Voltar</button>
+         <div className="title-album">{albumTitle}</div>
+         <div className="container-album">
+               
+               {loading &&
+                  <div className="load-album">
+                     <div className="load">Carregando...</div>
+                  </div>
+               }
+               {!loading && photos.length > 0 &&
+               
+                     photos.map((item, index)=>(
+                        <Link to={`/pictures/${item.id}`} className="link">
+                           <div key={index} className='grid-album' >
+                                    <div>{item.id}</div>
+                                    <img src={item.thumbnailUrl} alt="" />
+                           </div>
+                        </Link> 
+                        
+                     )) 
                   
-               ))    
-            }
+               }
 
-      </div>
+         </div>
       
       
       </div>

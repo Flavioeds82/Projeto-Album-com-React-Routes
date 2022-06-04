@@ -1,9 +1,8 @@
 import '../App.css';
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { Photo } from '../types/photo';
-import { GridPhotografy } from '../components/GridPhoto';
 
 
 
@@ -15,6 +14,7 @@ export function Pictures(){
 
    const [photo, setPhoto] = useState<number>(0);
    const [photoURL, setPhotoURL] = useState<string>('');
+   const [photoTitle, setPhotoTitle] = useState<string>('');
    const [loading, setLoading] = useState<boolean>(true);
    
    
@@ -35,6 +35,7 @@ export function Pictures(){
             if(i.id === parseInt(params.id)){
                 setPhotoURL(i.url);
                 setPhoto(i.id);
+                setPhotoTitle(i.title);
                 
             }
          }
@@ -54,8 +55,12 @@ export function Pictures(){
             {loading && 
                 <div className="load-photo">Carregando...</div>      
             }
-            {!loading && 
-                <img src={photoURL} alt="" />      
+            {!loading &&
+               <div className='photo-info'>
+                  <div className='info'>{photoTitle}</div>
+                  <img src={photoURL} alt="" id='photo'/>
+               </div>
+                     
             }
 
          </div>

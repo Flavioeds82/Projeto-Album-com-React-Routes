@@ -26,10 +26,13 @@ hr{
   height: 3px;
   background-color: #D8B08C;
   border: 1px solid #D8B08C;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 h1{
   color: #0F6466;
   font-size: 18px;
+ 
 }
 .container-home{
   display: grid;
@@ -114,4 +117,30 @@ h1{
 }
 .photo{
    margin-top: 50px;
+}
+.title-album{
+  font-size: 45px;
+  margin-top: 50px;
+  color:#0F6466;
+  text-transform: uppercase;
+
+}
+.info-album{
+  font-size: 13px;
+  margin: 20px;
+}
+.info{
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+  text-align: center;
+  color: #0F6466;
+}
+#photo{
+  margin: 20px;
+}
+.load-album,
+.load-photo,
+.load{
+  color: #0F6466;
 }
